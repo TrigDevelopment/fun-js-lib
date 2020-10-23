@@ -1,4 +1,5 @@
 node_modules
 dist
 ext
-archive.zip
+.vscode
+package-lock.json
