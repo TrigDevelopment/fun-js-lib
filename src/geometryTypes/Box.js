@@ -1,5 +1,4 @@
-﻿/**type containing width and height */
-export default class Box {
+﻿export default class Box {
   /**
    * @param {number} width
    * @param {number} height
@@ -15,14 +14,6 @@ export default class Box {
   static byBoxLike (boxLike) {
     return new Box(boxLike.width, boxLike.height)
   }
-  /**
-   * Creates and returns new box bounding rect of element
-   * @param {d3.Selection} element 
-   */
-  static byElement (element) {
-    const b = element.node().getBoundingClientRect()
-    return this.byBoxLike(b)
-  }
   get h () {
     return this.height
   }
@@ -37,13 +28,5 @@ export default class Box {
     return new Box(
       this.width * factor,
       this.height * factor)
-  }
-  /**
-   * @param {d3.Selection} to 
-   */
-  setSizesTo (to) {
-    to
-      .attr('width', this.w)
-      .attr('height', this.h)
   }
 }

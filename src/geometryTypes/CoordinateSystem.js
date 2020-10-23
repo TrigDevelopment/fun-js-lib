@@ -1,5 +1,5 @@
-﻿import Dot from "./Dot";
-import Vector from "./Vector";
+﻿import Dot from './Dot'
+import Vector from './Vector'
 
 /**
  * Represents coordinate system
@@ -9,7 +9,7 @@ import Vector from "./Vector";
 export default class CoordinateSystem {
   /**
    * @param {Dot} oDot
-   * @param {Vector[]} basisVectors Link to basisVectors
+   * @param {Vector[]} basisVectors
    */
   constructor(oDot, basisVectors) {
     this.oDot = oDot
@@ -17,7 +17,6 @@ export default class CoordinateSystem {
   }
   /**
    * Uses coordinates to return dot from the system in coordinates of basis system.
-   * For example, (0, 0): this.oDot
    * @param {number} x
    * @param {number} y
    */

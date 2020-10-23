@@ -28,7 +28,7 @@ export default class Direction {
   }
   /**
    * Creates Direction from KeyboardEvent.
-   * Creates left Direction, if backspace was pressed, right Direction, if delete
+   * Creates left Direction for backspace, right Direction for delete
    * @param {KeyboardEvent} event
    */
   static createByBackspace (event) {
