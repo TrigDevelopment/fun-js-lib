@@ -1,9 +1,9 @@
-﻿import { DirectionEnum } from "./DirectionEnum";
+﻿import { DirectionEnum } from './DirectionEnum'
 
 export default class Direction {
   /**
-   * Create Direction from direction index:
-   * Use DirectionEnum to specify direction
+   * Create `Direction` from `direction`.\
+   * Use `DirectionEnum` to specify direction
    * @param {DirectionEnum} direction
    */
   constructor(direction) {
@@ -11,10 +11,10 @@ export default class Direction {
     this.direction = direction
   }
   /**
-   * Creates Direction from KeyboardEvent (using arrow direction)
+   * Creates Direction from KeyboardEvent using arrow key direction
    * @param {KeyboardEvent} event
    */
-  static createByEvent (event) {
+  static createByArrow (event) {
     switch (event.keyCode) {
       case 37:
         return new Direction(DirectionEnum.LEFT)

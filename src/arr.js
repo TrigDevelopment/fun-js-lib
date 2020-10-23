@@ -130,13 +130,22 @@ export function arrRemoveI (arr, i) {
 }
 
 /**
+ * Returns sum of `f(x)` on every element of `arr`
  * @template T
  * @param {T[]} arr 
  * @param {(element: T) => number} f
  */
-export function arrSum (arr, f) {
+export function arrSumF (arr, f) {
   return arr.reduce(
     (acc, el) => acc + f(el), 0)
+}
+
+/**
+ * Returns sum `arr` elements
+ * @param {number[]} arr 
+ */
+export function arrSum (arr) {
+  return arrSumF(arr, x => x)
 }
 
 /**
@@ -144,7 +153,7 @@ export function arrSum (arr, f) {
  * @param {T[]} arr 
  * @param {(element: T) => number} f 
  */
-export function arrMax (arr, f) {
+export function arrMaxF (arr, f) {
   return arr.reduce(
     (acc, el) => Math.max(acc, f(el)), 0)
 }
@@ -253,4 +262,20 @@ export function arrIsSorted (arr) {
     }
   }
   return true
+}
+
+/**
+ * @param {number[]} arr 
+ */
+export function arrMean (arr) {
+  return arrSum(arr) / arr.length
+}
+
+/**
+ * Returns sum of deviations from mean value
+ * @param {number[]} arr 
+ */
+export function arrDeviationSum (arr) {
+  let mean = arrMean(arr)
+  return arrSumF(arr, x => Math.abs(x - mean))
 }
