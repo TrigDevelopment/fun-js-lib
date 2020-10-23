@@ -1,0 +1,14 @@
+{
+  "name": "implication-education",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {}
+}
