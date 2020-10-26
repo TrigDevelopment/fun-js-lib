@@ -1,3 +1,5 @@
+import { increasing } from './fun'
+
 /**
  * @param {number} min
  * @param {number} max
@@ -17,6 +19,16 @@ export function randIntArr (min, max, len) {
     arr.push(randInt(min, max))
   }
   return arr
+}
+
+/**
+ * @param {number} min 
+ * @param {number} max 
+ * @param {number} size 
+ */
+export function randIntSquareMatrix (min, max, size) {
+  return increasing(size)
+    .map(_ => randIntArr(min, max, size))
 }
 
 /**
