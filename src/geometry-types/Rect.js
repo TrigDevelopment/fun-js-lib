@@ -74,4 +74,7 @@ export default class Rect {
       this.width,
       this.height)
   }
+  center () {
+    return new Dot(this.x + this.w / 2, this.y + this.h / 2)
+  }
 }

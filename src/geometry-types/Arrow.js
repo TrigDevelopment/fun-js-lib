@@ -1,30 +1,16 @@
-import Vector from './Vector'
+import Dot from './Dot'
 
 /**
  * Represents two-dimensional fixed vector.
  * Has start dot.
- * @property {number} x
- * @property {number} y
  */
 export default class Arrow {
   /**
-   * @param {number} startX
-   * @param {number} startY
-   * @param {number} endX
-   * @param {number} endY
+   * @param {Dot} start
+   * @param {Dot} end
    */
-  constructor(startX, startY, endX, endY) {
-    this.startX = startX
-    this.startY = startY
-    this.endX = endX
-    this.endY = endY
-  }
-  /**
-   * @param {Vector} freeVector
-   */
-  moved (freeVector) {
-    return new Vector(
-      this.startX + freeVector.x,
-      this.startX + freeVector.y)
+  constructor(start, end) {
+    this.start = start
+    this.end = end
   }
 }
