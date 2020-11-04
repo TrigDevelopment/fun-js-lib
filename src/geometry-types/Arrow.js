@@ -2,7 +2,7 @@ import Vector from './Vector'
 
 /**
  * Represents two-dimensional fixed vector.
- * It has start dot.
+ * Has start dot.
  * @property {number} x
  * @property {number} y
  */

@@ -74,17 +74,4 @@ export default class Rect {
       this.width,
       this.height)
   }
-  /**
-   * Appends svg <rect>.
-   * Returns rect selection.
-   * Assumes use of d3 library.
-   * @param {d3.Selection} to 
-   */
-  appendTo (to) {
-    return to.append('rect')
-      .attr('x', this.x)
-      .attr('y', this.y)
-      .attr('width', this.width)
-      .attr('height', this.height)
-  }
 }

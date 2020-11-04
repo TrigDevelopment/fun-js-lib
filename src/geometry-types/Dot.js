@@ -1,5 +1,5 @@
-﻿import Vector from "./Vector";
-import Rect from "./Rect";
+﻿import Vector from './Vector'
+import Rect from './Rect'
 
 /**
  * Represents two-dimensional dot.
@@ -54,14 +54,6 @@ export default class Dot {
     return new Dot(
       this.x,
       this.y + y)
-  }
-  /**
-   * @param {d3.Selection} to 
-   */
-  setPositionTo (to) {
-    to
-      .attr('x', this.x)
-      .attr('y', this.y)
   }
   /**
    * @param {Rect} rect
