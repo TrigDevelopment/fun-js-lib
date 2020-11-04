@@ -32,9 +32,19 @@ export function randIntSquareMatrix (min, max, size) {
 }
 
 /**
- * Returns random element from given [arr]
+ * Returns random element from given `arr` and its index
+ * @param {any[]} arr 
+ */
+export function randPickI (arr) {
+  let i = randInt(0, arr.length - 1)
+  let el = arr[i]
+  return { i, el }
+}
+
+/**
+ * Returns random element from given `arr`
  * @param {any[]} arr 
  */
 export function randPick (arr) {
-  return arr[randInt(0, arr.length - 1)]
+  return randPickI(arr).el
 }
