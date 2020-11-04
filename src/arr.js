@@ -1,11 +1,12 @@
 import { zipWith } from 'ramda';
 
 /**
- * Pads arr to length of [len] using padding element to fill.
+ * Pads `arr` to length `len` using `padding` element to fill.
  * Padding is placed on left of array.
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  * @param {number} len 
- * @param {any} padding 
+ * @param {T} padding 
  */
 export function padLeft (arr, len, padding) {
   return Array(len - arr.length).fill(padding)
@@ -13,17 +14,19 @@ export function padLeft (arr, len, padding) {
 }
 
 /**
- * Pads [arr] to length of [len] using [padding] element to fill
+ * Pads `arr` to length `len` using `padding` element to fill
  * Padding is placed on right of array.
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  * @param {number} len 
- * @param {any} padding 
+ * @param {T} padding 
  */
 export function padRight (arr, len, padding) {
   return arr.concat(Array(len - arr.length).fill(padding))
 }
+
 /**
- * Removes and returns first element of [arr]
+ * Removes and returns first element of `arr`
  * @param {any[]} arr 
  */
 export function arrPopFront (arr) {
@@ -31,7 +34,7 @@ export function arrPopFront (arr) {
   for (let i = 0; i < arr.length - 1; ++i) {
     arr[i] = arr[i + 1]
   }
-  arr.length--;
+  arr.length--
   return first
 }
 
@@ -51,6 +54,7 @@ export const arrPlus = (arr1, arr2) =>
   zipWith((x, y) => x + y, arr1, arr2)
 
 /**
+ * Returns true iff `arr` is empty
  * @param {any[]} arr 
  */
 export function arrEmpty (arr) {
@@ -87,7 +91,7 @@ export function emptyArrays (n) {
 }
 
 /**
- * returns [0,1,2,...,n-1]
+ * Returns [0,1,2,...,n-1]
  * @param {number} n 
  */
 export function increasing (n) {
@@ -111,7 +115,7 @@ export function arrSwap (arr, i1, i2) {
 }
 
 /**
- * Removes all elements from given [arr] that are (=== el)
+ * Removes all elements from given `arr` that are `=== el`
  * @template T
  * @param {T[]} arr 
  * @param {T} el 
@@ -121,7 +125,7 @@ export function arrRemoveEl (arr, el) {
 }
 
 /**
- * Removes element with given [i]
+ * Removes element with given `i`
  * @param {any[]} arr 
  * @param {number} i
  */
@@ -278,4 +282,41 @@ export function arrMean (arr) {
 export function arrDeviationSum (arr) {
   let mean = arrMean(arr)
   return arrSumF(arr, x => Math.abs(x - mean))
+}
+
+/**
+ * @template T
+ * @param {T[]} arr 
+ * @param {(el: T) => boolean} pred 
+ */
+export function arrAll (arr, pred) {
+  let b = true
+  arr.forEach(x => {
+    if (!pred(x)) {
+      b = false
+    }
+  })
+  return b
+}
+
+/**
+ * Appends `what` array to `to` array
+ * @template T
+ * @param {T[]} to 
+ * @param {T[]} what 
+ */
+export function arrAppend (to, what) {
+  what.forEach(el => to.push(el))
+}
+
+/**
+ * Returns [0,1,2,...,n-1]
+ * @param {number} n 
+ */
+export function arrInc (n) {
+  let arr = []
+  for (let i = 0; i < n; ++i) {
+    arr.push(i)
+  }
+  return arr
 }
