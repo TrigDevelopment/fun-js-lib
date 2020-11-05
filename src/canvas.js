@@ -1,4 +1,5 @@
 import Arrow from './geometry-types/Arrow'
+import Dot from './geometry-types/Dot'
 import Rect from './geometry-types/Rect'
 
 /**
@@ -41,4 +42,21 @@ export function canvasLine (context, arrow, lineWidth) {
   context.lineTo(arrow.end.x, arrow.end.y)
   context.lineWidth = lineWidth
   context.stroke()
+}
+
+/**
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {Dot} position 
+ */
+export function canvasText (context, text, position) {
+  context.fillText(text, position.x, position.y)
+}
+
+/**
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ */
+export function canvasTextWidth (context, text) {
+  return context.measureText(text).width
 }
