@@ -300,6 +300,22 @@ export function arrAll (arr, pred) {
 }
 
 /**
+ * Returns true iff some element of `arr` is `pred`
+ * @template T
+ * @param {T[]} arr 
+ * @param {(el: T) => boolean} pred 
+ */
+export function arrSome (arr, pred) {
+  let b = false
+  arr.forEach(x => {
+    if (pred(x)) {
+      b = true
+    }
+  })
+  return b
+}
+
+/**
  * Appends `what` array to `to` array
  * @template T
  * @param {T[]} to 
@@ -319,4 +335,12 @@ export function arrInc (n) {
     arr.push(i)
   }
   return arr
+}
+
+/**
+ * Returns shallow copy of `arr`
+ * @param {any[]} arr 
+ */
+export function arrShallowCopy(arr){
+  return [].concat(arr)
 }
