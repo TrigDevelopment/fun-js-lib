@@ -1,4 +1,5 @@
 import { zipWith } from 'ramda';
+import { mathDelta } from './math';
 
 /**
  * Pads `arr` to length `len` using `padding` element to fill.
@@ -203,6 +204,7 @@ export function findLastI (arr, pred) {
   }
   return null
 }
+
 /**
  * Returns number of pred elements
  * @template T
@@ -218,6 +220,7 @@ export function arrCount (arr, pred) {
   }
   return n
 }
+
 /**
  * @template T
  * @param {T[]} arr 
@@ -281,7 +284,7 @@ export function arrMean (arr) {
  */
 export function arrDeviationSum (arr) {
   let mean = arrMean(arr)
-  return arrSumF(arr, x => Math.abs(x - mean))
+  return arrSumF(arr, x => mathDelta(x, mean))
 }
 
 /**
@@ -339,8 +342,42 @@ export function arrInc (n) {
 
 /**
  * Returns shallow copy of `arr`
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  */
-export function arrShallowCopy(arr){
+export function arrShallowCopy (arr) {
   return [].concat(arr)
+}
+
+/**
+ * @template T
+ * @param {T[][]} arrays 
+ */
+export function arrConcat (arrays) {
+  return arrays.reduce((acc, cur) => acc.concat(cur), [])
+}
+
+/**
+ * @template T
+ * @param {T[]} arr1 
+ * @param {T[]} arr2 
+ */
+export function arrCrossProduct (arr1, arr2) {
+  return arrConcat(arr1.map(a => arr2.map(b => [a, b])))
+}
+
+/**
+ * @template T
+ * @param {T[]} arr1 
+ * @param {T[]} arr2 
+ */
+export function arrZip (arr1, arr2) {
+  return arr1.map((a, i) => [a, arr2[i]])
+}
+
+/**
+ * @param {number[]} arr 
+ */
+export function arrProduct (arr) {
+  return arr.reduce((acc, x) => acc * x)
 }
