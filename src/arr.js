@@ -92,18 +92,6 @@ export function emptyArrays (n) {
 }
 
 /**
- * Returns [0,1,2,...,n-1]
- * @param {number} n 
- */
-export function increasing (n) {
-  let arr = []
-  for (var i = 0; i < n; ++i) {
-    arr.push(i)
-  }
-  return arr
-}
-
-/**
  * Swaps two elements of array with indexes [i1] and [i2]
  * @param {any[]} arr 
  * @param {number} i1 

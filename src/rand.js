@@ -1,4 +1,4 @@
-import { increasing } from './fun'
+import { arrInc } from './arr'
 
 /**
  * @param {number} min
@@ -27,7 +27,7 @@ export function randIntArr (min, max, len) {
  * @param {number} size 
  */
 export function randIntSquareMatrix (min, max, size) {
-  return increasing(size)
+  return arrInc(size)
     .map(_ => randIntArr(min, max, size))
 }
 
