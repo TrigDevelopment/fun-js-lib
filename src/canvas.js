@@ -1,6 +1,7 @@
 import Arrow from './geometry-types/Arrow'
 import Dot from './geometry-types/Dot'
 import Rect from './geometry-types/Rect'
+import { strsEmpty } from './str'
 
 /**
  * @param {CanvasRenderingContext2D} context 
@@ -59,4 +60,69 @@ export function canvasText (context, text, position) {
  */
 export function canvasTextWidth (context, text) {
   return context.measureText(text).width
+}
+
+/**
+ * Fills `text` in center of `rect`. `TextMetrics.fontBoundingBoxDescent` and
+ * `TextMetrics.fontBoundingBoxAscent` are still experimental, so we cannot
+ * use them to determine text height.
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {Rect} rect 
+ * @param {number} textHeight Text height in pixels
+ */
+export function canvasTextCentered (context, text, rect, textHeight) {
+  let textW = canvasTextWidth(context, text)
+  let position = Dot.byDotLike({
+    x: rect.x + rect.w / 2 - textW / 2,
+    y: rect.y + rect.h / 2 - textHeight / 2
+  })
+  canvasText(context, text, position)
+}
+
+/**
+ * Using `maxW` as maximum row width, splits `text` by spaces so that\
+ * strings can fit in these rows. If `text` is an empty string,\
+ * array with one empty string is returned
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {number} maxW 
+ */
+export function canvasSplitBounded (context, text, maxW) {
+  let words = text.split(' ')
+  let w = 0
+  let lines = strsEmpty()
+  let line = strsEmpty()
+  words.forEach(word => {
+    let wordW = canvasTextWidth(context, word)
+    w += wordW + canvasTextWidth(context, ' ')
+    if (w > maxW) {
+      if (line.length !== 0) {
+        lines.push(line.join(' '))
+      }
+      line = [word]
+      w = wordW
+    } else {
+      line.push(word)
+    }
+  })
+  lines.push(line.join(' '))
+  return lines
+}
+
+/**
+ * Splits `text` into lines by spaces and draws it into `rect` with
+ * given `lineInterval`. Note that `rect.h` is not used and text can
+ * be drawn out of `rect`. Also if one word is too long to fit into line,
+ * it can break right line of `rect`
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {Rect} rect
+ * @param {number} lineInterval 
+ */
+export const canvasTextBounded = (context, text, rect, lineInterval) => {
+  let lines = canvasSplitBounded(context, text, rect.w)
+  lines.forEach((line, i) => {
+    context.fillText(line, rect.x, rect.y + (i + 1) * lineInterval)
+  })
 }
