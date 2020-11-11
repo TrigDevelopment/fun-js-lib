@@ -91,3 +91,11 @@ export function noHtmlTags (str) {
 export function spaces (nSpaces) {
   return ' '.repeat(nSpaces)
 }
+
+/**
+ * Splits given `str` by `\r\n` and `\n`, returning array with lines
+ * @param {string} str 
+ */
+export function strToLines (str) {
+  return str.replace(/\r\n/g, '\n').split('\n')
+}
