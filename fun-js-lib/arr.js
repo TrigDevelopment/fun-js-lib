@@ -338,3 +338,38 @@ export function arrZip (arr1, arr2) {
 export function arrProduct (arr) {
   return arr.reduce((acc, x) => acc * x)
 }
+
+/**
+ * Removes duplicates from `arr` using `isEqual` predicate to 
+ * determine equal elements
+ * @template T
+ * @param {T[]} arr 
+ * @param {(a: T, b: T) => boolean} isEqual 
+ */
+export function arrRemoveDuplicates (arr, isEqual) {
+  for (let i = 0; i < arr.length; ++i) {
+    if (arr.slice(0, i).some(x => isEqual(x, arr[i]))) {
+      arrRemoveI(arr, i)
+    }
+  }
+}
+
+/**
+ * @template Value
+ * @template Key
+ * @param {Value[]} arr 
+ * @param {(value: Value) => Key} keyF 
+ */
+export function arrClassify(arr, keyF) {
+  /** @type {Map<Key, Value[]>} */
+  let classes = new Map()
+  arr.forEach(v => {
+    let key = keyF(v)
+    if (classes.has(key)) {
+      classes.get(key).push(v)
+    } else {
+      classes.set(key, [v])
+    }
+  })
+  return classes
+}
