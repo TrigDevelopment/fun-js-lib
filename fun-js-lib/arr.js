@@ -1,4 +1,3 @@
-import { zipWith } from 'ramda';
 import { mathDelta } from './math';
 
 /**
@@ -28,7 +27,8 @@ export function padRight (arr, len, padding) {
 
 /**
  * Removes and returns first element of `arr`
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  */
 export function arrPopFront (arr) {
   let first = arr[0]
@@ -40,26 +40,21 @@ export function arrPopFront (arr) {
 }
 
 /**
- * @param {any[]} arr 
- */
-export function arrNEmpty (arr) {
-  return arr.length > 0
-}
-
-/**
- * Zips two arrays with +
+ * Adds two arrays elementwise
  * @param {number[]} arr1 
  * @param {number[]} arr2 
  */
-export const arrPlus = (arr1, arr2) =>
-  zipWith((x, y) => x + y, arr1, arr2)
+export function arrPlus (arr1, arr2) {
+  return arrZip(arr1, arr2).map(([a, b]) => a + b)
+}
 
 /**
  * Returns true iff `arr` is empty
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  */
 export function arrEmpty (arr) {
-  return !arrNEmpty(arr)
+  return arr.length === 0
 }
 
 /**
