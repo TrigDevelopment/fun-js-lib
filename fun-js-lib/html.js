@@ -12,3 +12,11 @@ export function htmlTagged (container, tag) {
 export function htmlNew (tag) {
   return document.createElement(tag)
 }
+
+export function htmlBody () {
+  return document.body
+}
+
+export function htmlCanvas () {
+  return htmlNew('canvas')
+}
