@@ -2,29 +2,22 @@
 import Dot from './Dot'
 import Vector from './Vector'
 
+/**
+ * Represents rectangle
+ */
 export default class Rect {
   /**
-   * @param {number} x
-   * @param {number} y
-   * @param {number} width
-   * @param {number} height
-   */
-  constructor (x, y, width, height) {
-    this.x = x
-    this.y = y
-    this.width = width
-    this.height = height
-  }
-  /**
-   * Creates new Rect by properties of args
    * @param {Object} args
    * @param {number} args.x
    * @param {number} args.y
-   * @param {number} args.w
-   * @param {number} args.h
+   * @param {number} args.w Width
+   * @param {number} args.h Height
    */
-  static byNamed (args) {
-    return new Rect(args.x, args.y, args.w, args.h)
+  constructor (args) {
+    this.x = args.x
+    this.y = args.y
+    this.width = args.w
+    this.height = args.h
   }
   /**
    * Creates new Rect by x, y and box
@@ -33,7 +26,7 @@ export default class Rect {
    * @param {Box} box 
    */
   static byXYAndBox (x, y, box) {
-    return new Rect(x, y, box.w, box.h)
+    return new Rect({ x, y, w: box.w, h: box.h })
   }
   /**
    * Creates new Rect by dot, width and height
@@ -42,7 +35,7 @@ export default class Rect {
    * @param {number} height 
    */
   static byDotAndWH (dot, width, height) {
-    return new Rect(dot.x, dot.y, width, height)
+    return new Rect({ x: dot.x, y: dot.y, w: width, h: height })
   }
   /**
    * 
@@ -50,7 +43,7 @@ export default class Rect {
    * @param {Box} box 
    */
   static byDotAndBox (dot, box) {
-    return new Rect(dot.x, dot.y, box.w, box.h)
+    return new Rect({ x: dot.x, y: dot.y, w: box.w, h: box.h })
   }
   /**
    * Logs this rect as string
@@ -68,11 +61,12 @@ export default class Rect {
    * @param {Vector} vector
    */
   moved (vector) {
-    return new Rect(
-      this.x + vector.x,
-      this.y + vector.y,
-      this.width,
-      this.height)
+    return new Rect({
+      x: this.x + vector.x,
+      y: this.y + vector.y,
+      w: this.width,
+      h: this.height
+    })
   }
   center () {
     return new Dot(this.x + this.w / 2, this.y + this.h / 2)
