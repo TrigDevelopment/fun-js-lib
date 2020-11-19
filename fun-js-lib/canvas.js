@@ -75,7 +75,7 @@ export function canvasTextCentered (context, text, rect, textHeight) {
   let textW = canvasTextWidth(context, text)
   let position = Dot.byDotLike({
     x: rect.x + rect.w / 2 - textW / 2,
-    y: rect.y + rect.h / 2 - textHeight / 2
+    y: rect.y + rect.h / 2 + textHeight / 2
   })
   canvasText(context, text, position)
 }
