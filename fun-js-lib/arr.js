@@ -152,9 +152,8 @@ export function arrMaxF (arr, f) {
  * @param {T[]} arr 
  * @param {T} el 
  */
-export function arrHas (arr, el) {
-  return arr.find(e => e === el) !== undefined
-}
+export const arrHas = (arr, el) =>
+  arr.find(e => e === el) !== undefined
 
 /**
  * Returns last element of [arr] for which pred is true. \
@@ -355,7 +354,7 @@ export function arrRemoveDuplicates (arr, isEqual) {
  * @param {Value[]} arr 
  * @param {(value: Value) => Key} keyF 
  */
-export function arrClassify(arr, keyF) {
+export function arrClassify (arr, keyF) {
   /** @type {Map<Key, Value[]>} */
   let classes = new Map()
   arr.forEach(v => {
@@ -368,3 +367,32 @@ export function arrClassify(arr, keyF) {
   })
   return classes
 }
+
+/**
+ * Returns indexes of all elements from given `arr` that are `predicate`
+ * @template T
+ * @param {T[]} arr 
+ * @param {(element: T) => boolean} predicate 
+ */
+export function arrIndexes (arr, predicate) {
+  return arr.filter((el, i) => predicate(el) ? i : null)
+    .map((_, i) => i)
+}
+
+/**
+ * Returns array with elements from `arr` that have specified `indexes`
+ * @template T
+ * @param {T[]} arr 
+ * @param {number[]} indexes 
+ */
+export const arrSubset = (arr, indexes) =>
+  indexes.map(i => arr[i])
+
+/**
+ * Returns `arr` without elements that exist in `except` array
+ * @template T
+ * @param {T[]} arr 
+ * @param {T[]} except 
+ */
+export const arrExcept = (arr, except) =>
+  arr.filter(el => !arrHas(except, el))
