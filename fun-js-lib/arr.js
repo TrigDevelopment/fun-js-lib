@@ -256,9 +256,8 @@ export function arrIsSorted (arr) {
 /**
  * @param {number[]} arr 
  */
-export function arrMean (arr) {
-  return arrSum(arr) / arr.length
-}
+export const arrMean = arr => 
+  arrSum(arr) / arr.length
 
 /**
  * Returns sum of deviations from mean value
@@ -296,42 +295,40 @@ export function arrInc (n) {
  * @template T
  * @param {T[]} arr 
  */
-export function arrShallowCopy (arr) {
-  return [].concat(arr)
-}
+export const arrShallowCopy = arr =>
+  [].concat(arr)
 
 /**
  * @template T
  * @param {T[][]} arrays 
  */
-export function arrConcat (arrays) {
-  return arrays.reduce((acc, cur) => acc.concat(cur), [])
-}
+export const arrConcat = arrays => 
+  arrays.reduce((acc, cur) => acc.concat(cur), [])
 
 /**
  * @template T
  * @param {T[]} arr1 
  * @param {T[]} arr2 
  */
-export function arrCrossProduct (arr1, arr2) {
-  return arrConcat(arr1.map(a => arr2.map(b => [a, b])))
-}
+export const arrCrossProduct = (arr1, arr2) =>
+  arrConcat(arr1.map(a => arr2.map(b => [a, b])))
 
 /**
+ * Returns array of pairs with elements from `arr1` and `arr2`.
+ * Arrays must be of the same length
  * @template T
  * @param {T[]} arr1 
  * @param {T[]} arr2 
  */
-export function arrZip (arr1, arr2) {
-  return arr1.map((a, i) => [a, arr2[i]])
-}
+export const arrZip = (arr1, arr2) => 
+  arr1.map((a, i) => [a, arr2[i]])
 
 /**
+ * Returns product of all elements of given `arr`
  * @param {number[]} arr 
  */
-export function arrProduct (arr) {
-  return arr.reduce((acc, x) => acc * x)
-}
+export const arrProduct = arr =>
+  arr.reduce((acc, x) => acc * x)
 
 /**
  * Removes duplicates from `arr` using `isEqual` predicate to 
