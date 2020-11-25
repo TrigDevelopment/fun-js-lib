@@ -1,4 +1,4 @@
-import { arrInc } from './arr'
+import { arrInc, arrSubset } from './arr'
 
 /**
  * @param {number} min
@@ -33,7 +33,8 @@ export function randIntSquareMatrix (min, max, size) {
 
 /**
  * Returns random element from given `arr` and its index
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  */
 export function randPickI (arr) {
   let i = randInt(0, arr.length - 1)
@@ -43,8 +44,23 @@ export function randPickI (arr) {
 
 /**
  * Returns random element from given `arr`
- * @param {any[]} arr 
+ * @template T
+ * @param {T[]} arr 
  */
-export function randPick (arr) {
-  return randPickI(arr).el
+export const randPick = arr =>
+  randPickI(arr).el
+
+/**
+ * Returns many random elements from given `arr`
+ * @template T
+ * @param {T[]} arr 
+ * @param {number} nElementsToPick
+ */
+export function randPickMany (arr, nElementsToPick) {
+  /** @type {Set<number>} */
+  let indexes = new Set()
+  while (indexes.size < nElementsToPick && indexes.size < arr.length) {
+    indexes.add(randPickI(arr).i)
+  }
+  return arrSubset(arr, Array.from(indexes))
 }
