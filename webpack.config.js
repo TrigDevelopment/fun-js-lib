@@ -1,13 +1,10 @@
-﻿const path = require('path')
+﻿const path = require('path');
+
 module.exports = {
-  mode: 'development',
-  //mode: 'production',
-  entry: {
-    index: './tests/init.js',
-  },
-  target: 'web',
+  entry: './test/canary.test.js',
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
-  }
-}
+    path: path.resolve(__dirname, "dist"),
+    filename: 'test.js'
+  },
+  mode: 'none'
+};
