@@ -1,6 +1,6 @@
-import Arrow from './geometry-types/Arrow'
-import Dot from './geometry-types/Dot'
-import Rect from './geometry-types/Rect'
+import Arrow from './geometry/Arrow'
+import Dot from './geometry/Dot'
+import Rect from './geometry/Rect'
 import { strsEmpty } from './str'
 
 /**
@@ -73,7 +73,7 @@ export function canvasTextWidth (context, text) {
  */
 export function canvasTextCentered (context, text, rect, textHeight) {
   let textW = canvasTextWidth(context, text)
-  let position = Dot.byDotLike({
+  let position = new Dot({
     x: rect.x + rect.w / 2 - textW / 2,
     y: rect.y + rect.h / 2 + textHeight / 2
   })

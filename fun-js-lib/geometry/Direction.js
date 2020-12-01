@@ -67,7 +67,7 @@ export default class Direction {
     }
   }
   /**
-   * console.logs lowercase string representation of direction
+   * Logs lowercase string representation of direction
    */
   log () {
     console.log(this.toString())
