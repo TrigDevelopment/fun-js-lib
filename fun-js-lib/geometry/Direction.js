@@ -10,6 +10,18 @@ export default class Direction {
     /** Value is from DirectionEnum */
     this.direction = direction
   }
+  static newUp () {
+    return new Direction(DirectionEnum.UP)
+  }
+  static newRight () {
+    return new Direction(DirectionEnum.RIGHT)
+  }
+  static newDown () {
+    return new Direction(DirectionEnum.DOWN)
+  }
+  static newLeft () {
+    return new Direction(DirectionEnum.LEFT)
+  }
   /**
    * Creates Direction from KeyboardEvent using arrow key direction
    * @param {KeyboardEvent} event
@@ -38,18 +50,6 @@ export default class Direction {
       case 46:
         return new Direction(DirectionEnum.RIGHT)
     }
-  }
-  static newUp () {
-    return new Direction(DirectionEnum.UP)
-  }
-  static newRight () {
-    return new Direction(DirectionEnum.RIGHT)
-  }
-  static newDown () {
-    return new Direction(DirectionEnum.DOWN)
-  }
-  static newLeft () {
-    return new Direction(DirectionEnum.LEFT)
   }
   /**
    * Returns lowercase string representation of direction
@@ -86,11 +86,11 @@ export default class Direction {
       case DirectionEnum.UP:
         return new Direction(DirectionEnum.DOWN)
       case DirectionEnum.RIGHT:
-        return new Direction(DirectionEnum.DOWN)
+        return new Direction(DirectionEnum.LEFT)
       case DirectionEnum.DOWN:
-        return new Direction(DirectionEnum.DOWN)
+        return new Direction(DirectionEnum.UP)
       case DirectionEnum.LEFT:
-        return new Direction(DirectionEnum.DOWN)
+        return new Direction(DirectionEnum.RIGHT)
     }
   }
   isUp () {
