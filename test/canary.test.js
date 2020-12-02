@@ -1,4 +1,4 @@
-import { arrDeviationSum } from '../fun-js-lib/arr';
+import { arrDeviationSum } from '../fun-js-lib/arr'
 
 describe('arrDeviationSum', () => {
   it('on empty array is equal to 0', () => {

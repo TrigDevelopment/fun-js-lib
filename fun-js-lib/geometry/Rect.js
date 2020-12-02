@@ -2,29 +2,18 @@
 import Dot from './Dot'
 
 /**
- * Represents rectangle
+ * Represents rectangle. Rectangle is positioned box,
+ * i.e. box and it's position
  */
 export default class Rect {
   /**
    * @param {Object} args
-   * @param {number} args.x
-   * @param {number} args.y
-   * @param {number} args.w Width
-   * @param {number} args.h Height
+   * @param {Dot} args.dot
+   * @param {Box} args.box
    */
   constructor (args) {
-    this.x = args.x
-    this.y = args.y
-    this.w = args.w
-    this.h = args.h
-  }
-  /**
-   * Creates new `Rect` using given `dot` and `box`
-   * @param {Dot} dot 
-   * @param {Box} box 
-   */
-  static byDotAndBox (dot, box) {
-    return new Rect({ x: dot.x, y: dot.y, w: box.w, h: box.h })
+    this.dot = args.dot
+    this.box = args.box
   }
   /**
    * Logs this rect as string
@@ -37,16 +26,26 @@ export default class Rect {
    */
   moved (vector) {
     return new Rect({
-      x: this.x + vector.x,
-      y: this.y + vector.y,
-      w: this.w,
-      h: this.h
+      dot: this.dot.moved(vector),
+      box: this.box.copy()
     })
   }
   center () {
     return new Dot({
-      x: this.x + this.w / 2, 
+      x: this.x + this.w / 2,
       y: this.y + this.h / 2
     })
+  }
+  get x () {
+    return this.dot.x
+  }
+  get y () {
+    return this.dot.y
+  }
+  get w () {
+    return this.box.w
+  }
+  get h () {
+    return this.box.h
   }
 }
