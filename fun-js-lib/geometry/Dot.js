@@ -1,4 +1,5 @@
-﻿import Rect from './Rect'
+﻿import { mathDelta, mathSquare } from '../math'
+import Rect from './Rect'
 
 /**
  * Represents two-dimensional dot.
@@ -47,6 +48,13 @@ export default class Dot {
       y: this.y + (vector.y ?? 0),
       z: this.z + (vector.z ?? 0)
     })
+  }
+  /**
+   * @param {Dot} dot 
+   */
+  distance (dot) {
+    return Math.sqrt(mathSquare(this.x - dot.x)
+      + mathSquare(this.y - dot.y) + mathSquare(this.z - dot.z))
   }
   /**
    * Returns true iff this dot is in `rect`.

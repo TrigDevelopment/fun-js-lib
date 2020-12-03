@@ -14,3 +14,15 @@ export function mathFactorial (n) {
 export function mathDelta (a, b) {
   return Math.abs(a - b)
 }
+
+/**
+ * @param {number} a 
+ */
+export function mathSquare (a) {
+  return a * a
+}
+
+/**
+ * Returns golden angle in radians
+ */
+export const mathGoldenAngle = Math.PI * (3 - Math.sqrt(5))
