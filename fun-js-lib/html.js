@@ -20,3 +20,11 @@ export function htmlBody () {
 export function htmlCanvas () {
   return htmlNew('canvas')
 }
+
+/**
+ * @param {HTMLElement} element 
+ * @param {() => any} f
+ */
+export function htmlOnInput (element, f) {
+  element.addEventListener('input', f)
+}
