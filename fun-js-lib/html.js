@@ -28,3 +28,42 @@ export function htmlCanvas () {
 export function htmlOnInput (element, f) {
   element.addEventListener('input', f)
 }
+
+/**
+ * @param {HTMLElement} element 
+ * @param {() => any} f
+ */
+export function htmlOnClick (element, f) {
+  element.addEventListener('click', f)
+}
+
+/**
+ * @param {HTMLElement} element 
+ * @param {() => any} f
+ */
+export function htmlOnChange (element, f) {
+  element.addEventListener('change', f)
+}
+
+/**
+ * Returns html element with given `id` found in `document`
+ * @param {string} id 
+ */
+export const htmlIded = id =>
+  document.getElementById(id)
+
+/**
+ * Removes `disable` attribute from `element`
+ * @param {HTMLElement} element 
+ */
+export function htmlEnable (element) {
+  element.removeAttribute('disable')
+}
+
+/**
+ * Adds `disable` attribute from `element`
+ * @param {HTMLElement} element 
+ */
+export function htmlDisable (element) {
+  element.setAttribute('disabled', '')
+}
