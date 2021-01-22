@@ -1,11 +1,10 @@
-import Arrow from './geometry/Arrow'
-import Dot from './geometry/Dot'
-import Rect from './geometry/Rect'
+import { arrMaxF } from './arr'
+import Dot from './geometry-types/Dot'
 import { strsEmpty } from './str'
 
 /**
  * @param {CanvasRenderingContext2D} context 
- * @param {Rect} rect 
+ * @param {import('./geometry-types/Rect').default} rect 
  * @param {number} lineWidth 
  */
 export function canvasFrame (context, rect, lineWidth) {
@@ -32,17 +31,34 @@ export function canvasFillStyled (context, style, f) {
 }
 
 /**
+ * Changes `context` stroke style to `style`, calls `f`, 
+ * then reverts context stroke style
  * @param {CanvasRenderingContext2D} context 
- * @param {Arrow} arrow 
- * @param {number} lineWidth 
+ * @param {string} style 
+ * @param {() => any} f 
  */
-export function canvasLine (context, arrow, lineWidth) {
-  context.strokeStyle = 'black'
-  context.beginPath()
-  context.moveTo(arrow.start.x, arrow.start.y)
-  context.lineTo(arrow.end.x, arrow.end.y)
-  context.lineWidth = lineWidth
-  context.stroke()
+export function canvasStrokeStyled (context, style, f) {
+  let temp = context.strokeStyle
+  context.strokeStyle = style
+  f()
+  context.strokeStyle = temp
+}
+
+/**
+ * @param {Object} args
+ * @param {CanvasRenderingContext2D} args.context 
+ * @param {import('./geometry-types/Arrow').default} args.arrow 
+ * @param {number} [args.lineWidth]
+ * @param {string} [args.style]
+ */
+export function canvasLine (args) {
+  canvasStrokeStyled(args.context, args.style ?? args.context.strokeStyle, () => {
+    args.context.beginPath()
+    args.context.moveTo(args.arrow.start.x, args.arrow.start.y)
+    args.context.lineTo(args.arrow.end.x, args.arrow.end.y)
+    args.context.lineWidth = args.lineWidth ?? 1
+    args.context.stroke()
+  })
 }
 
 /**
@@ -57,9 +73,34 @@ export function canvasText (context, text, position) {
 /**
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
+ * @param {Dot} position 
+ * @param {string} font 
+ */
+export function canvasTextFonted (context, text, position, font) {
+  canvasFonted(context, font, () => {
+    canvasText(context, text, position)
+  })
+}
+
+/**
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
  */
 export function canvasTextWidth (context, text) {
   return context.measureText(text).width
+}
+
+/**
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {string} font 
+ */
+export function canvasTextWidthFonted (context, text, font) {
+  let width = 0
+  canvasFonted(context, font, () => {
+    width = canvasTextWidth(context, text)
+  })
+  return width
 }
 
 /**
@@ -68,7 +109,7 @@ export function canvasTextWidth (context, text) {
  * use them to determine text height.
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
- * @param {Rect} rect 
+ * @param {import('./geometry-types/Rect').default} rect 
  * @param {number} textHeight Text height in pixels
  */
 export function canvasTextCentered (context, text, rect, textHeight) {
@@ -81,8 +122,8 @@ export function canvasTextCentered (context, text, rect, textHeight) {
 }
 
 /**
- * Using `maxW` as maximum row width, splits `text` by spaces so that\
- * strings can fit in these rows. If `text` is an empty string,\
+ * Using `maxW` as maximum row width, splits `text` by spaces so that
+ * strings can fit in these rows. If `text` is an empty string,
  * array with one empty string is returned
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
@@ -117,7 +158,7 @@ export function canvasSplitBounded (context, text, maxW) {
  * it can break right line of `rect`
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
- * @param {Rect} rect
+ * @param {import('./geometry-types/Rect').default} rect
  * @param {number} lineInterval 
  */
 export const canvasTextBounded = (context, text, rect, lineInterval) => {
@@ -125,4 +166,49 @@ export const canvasTextBounded = (context, text, rect, lineInterval) => {
   lines.forEach((line, i) => {
     context.fillText(line, rect.x, rect.y + (i + 1) * lineInterval)
   })
+}
+
+/**
+ * Returns true iff `text` can fit onto `maxNLines` number of lines
+ * constrained by `maxWidth` drawn with given `font`.
+ * The text is splitted into strings by `splitBounded`.
+ * @param {Object} args
+ * @param {CanvasRenderingContext2D} args.context
+ * @param {string} args.text
+ * @param {string} args.font
+ * @param {number} args.maxNLines
+ * @param {number} args.maxWidth
+ */
+export function canvasCanTextFit (args) {
+  let maxWordW = 0
+  let nLines = 0
+  canvasFonted(args.context, args.font, () => {
+    maxWordW = canvasMaxWordWidth(args.context, args.text)
+    nLines = canvasSplitBounded(args.context, args.text, args.maxWidth).length
+  })
+  return maxWordW <= args.maxWidth && nLines <= args.maxNLines
+}
+
+/**
+ * Changes context font, calls `f`, then reverts context font
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} font 
+ * @param {() => any} f 
+ */
+export const canvasFonted = (context, font, f) => {
+  let temp = context.font
+  context.font = font
+  f()
+  context.font = temp
+}
+
+/**
+ * Returns width of most wide word from `text`.
+ * Text is being split by space
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ */
+export function canvasMaxWordWidth (context, text) {
+  let words = text.split(' ')
+  return arrMaxF(words, word => canvasTextWidth(context, word))
 }
