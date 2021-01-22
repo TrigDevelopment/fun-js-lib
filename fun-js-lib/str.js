@@ -79,9 +79,7 @@ export function strsEmpty () {
  * @param {string} str 
  */
 export function noHtmlTags (str) {
-  return str === '' ?
-    '' :
-    JSON.parse(str).html.replace(/<\/?[^>]+(>|$)/g, "")
+  return str.replace(/<\/?[^>]+(>|$)/g, '')
 }
 
 /**
