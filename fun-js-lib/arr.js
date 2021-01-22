@@ -279,7 +279,7 @@ export function arrAppend (to, what) {
 }
 
 /**
- * Returns [0,1,2,...,n-1]
+ * Returns `[0, 1, 2, ..., n-1]`
  * @param {number} n 
  */
 export function arrInc (n) {
@@ -289,6 +289,13 @@ export function arrInc (n) {
   }
   return arr
 }
+
+/**
+ * Returns `[n-1, n-2, n-3, ..., 2, 1, 0]`
+ * @param {number} n 
+ */
+export const arrDec = n => 
+  arrInc(n).map(k => n - k - 1)
 
 /**
  * Returns shallow copy of `arr`
