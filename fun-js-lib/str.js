@@ -99,3 +99,19 @@ export function spaces (nSpaces) {
 export function strToLines (str) {
   return str.replace(/\r\n/g, '\n').split('\n')
 }
+
+/**
+ * Concatenates `strings` while putting `separator` inbetween
+ * @param {string[]} strings 
+ * @param {string} separator 
+ */
+export function strIntersperse (strings, separator) {
+  let str = ''
+  strings.forEach((currentString, i) => {
+    str += currentString
+    if (i !== strings.length - 1) {
+      str += separator
+    }
+  })
+  return str
+}
