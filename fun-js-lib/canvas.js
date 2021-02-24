@@ -1,10 +1,10 @@
 import { arrMaxF } from './arr'
-import Dot from './geometry-types/Dot'
+import Dot from './geometry/Dot'
 import { strsEmpty } from './str'
 
 /**
  * @param {CanvasRenderingContext2D} context 
- * @param {import('./geometry-types/Rect').default} rect 
+ * @param {import('./geometry/Rect').default} rect 
  * @param {number} lineWidth 
  */
 export function canvasFrame (context, rect, lineWidth) {
@@ -34,7 +34,7 @@ export function canvasFillStyled (context, style, f) {
  * Changes `context` stroke style to `style`, calls `f`, 
  * then reverts context stroke style
  * @param {CanvasRenderingContext2D} context 
- * @param {string} style 
+ * @param {string | CanvasGradient | CanvasPattern} style 
  * @param {() => any} f 
  */
 export function canvasStrokeStyled (context, style, f) {
@@ -47,7 +47,7 @@ export function canvasStrokeStyled (context, style, f) {
 /**
  * @param {Object} args
  * @param {CanvasRenderingContext2D} args.context 
- * @param {import('./geometry-types/Arrow').default} args.arrow 
+ * @param {import('./geometry/Arrow').default} args.arrow 
  * @param {number} [args.lineWidth]
  * @param {string} [args.style]
  */
@@ -109,7 +109,7 @@ export function canvasTextWidthFonted (context, text, font) {
  * use them to determine text height.
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
- * @param {import('./geometry-types/Rect').default} rect 
+ * @param {import('./geometry/Rect').default} rect 
  * @param {number} textHeight Text height in pixels
  */
 export function canvasTextCentered (context, text, rect, textHeight) {
@@ -158,7 +158,7 @@ export function canvasSplitBounded (context, text, maxW) {
  * it can break right line of `rect`
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
- * @param {import('./geometry-types/Rect').default} rect
+ * @param {import('./geometry/Rect').default} rect
  * @param {number} lineInterval 
  */
 export const canvasTextBounded = (context, text, rect, lineInterval) => {
