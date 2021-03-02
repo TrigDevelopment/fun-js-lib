@@ -121,11 +121,15 @@ export function arrRemoveI (arr, i) {
  * Returns sum of `f(x)` on every element of `arr`
  * @template T
  * @param {T[]} arr 
- * @param {(element: T) => number} f
+ * @param {(element: T, index: number) => number} f
  */
 export function arrSumF (arr, f) {
   return arr.reduce(
-    (acc, el) => acc + f(el), 0)
+    (acc, el, i) => acc + f(el, i), 0)
+}
+
+export function arrZeros (n) {
+  return new Array(n).fill(0)
 }
 
 /**
