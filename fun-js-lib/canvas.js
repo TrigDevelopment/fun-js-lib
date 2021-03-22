@@ -3,6 +3,7 @@ import Dot from './geometry/Dot'
 import { strsEmpty } from './str'
 
 /**
+ * Draws frame on canvas
  * @param {CanvasRenderingContext2D} context 
  * @param {import('./geometry/Rect').default} rect 
  * @param {number} lineWidth 
@@ -20,7 +21,7 @@ export function canvasFrame (context, rect, lineWidth) {
 /**
  * Changes `context` fill style to `style`, calls `f`, then reverts context fill style
  * @param {CanvasRenderingContext2D} context 
- * @param {string} style 
+ * @param {string | CanvasGradient | CanvasPattern} style 
  * @param {() => any} f 
  */
 export function canvasFillStyled (context, style, f) {

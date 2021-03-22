@@ -28,7 +28,7 @@ export function randIntArr (min, max, len) {
  */
 export function randIntSquareMatrix (min, max, size) {
   return arrInc(size)
-    .map(_ => randIntArr(min, max, size))
+    .map(() => randIntArr(min, max, size))
 }
 
 /**

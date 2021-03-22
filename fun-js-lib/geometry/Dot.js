@@ -1,5 +1,4 @@
-﻿import { mathDelta, mathSquare } from '../math'
-import Rect from './Rect'
+﻿import { mathSquare } from '../math'
 
 /**
  * Represents two-dimensional dot.
@@ -59,7 +58,7 @@ export default class Dot {
   /**
    * Returns true iff this dot is in `rect`.
    * Third dimension (`this.z`) is not considered.
-   * @param {Rect} rect
+   * @param {import('./Rect').default} rect
    */
   isInRect (rect) {
     return this.x >= rect.x && this.x <= (rect.x + rect.w)

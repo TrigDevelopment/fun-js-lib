@@ -1,12 +1,10 @@
-﻿import Dot from './Dot'
-
-/**
+﻿/**
  * Represents coordinate system
  */
 export default class CoordinateSystem {
   /**
-   * @param {Dot} oDot
-   * @param {Dot[]} basisVectors
+   * @param {import('./Dot')} oDot
+   * @param {import('./Dot')} basisVectors
    */
   constructor(oDot, basisVectors) {
     /** Start dot of coordinate system */

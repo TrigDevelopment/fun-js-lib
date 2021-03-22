@@ -58,12 +58,14 @@ export const htmlIded = id =>
  */
 export function htmlEnable (element) {
   element.removeAttribute('disable')
+  element.disabled = false
 }
 
 /**
- * Adds `disable` attribute from `element`
+ * Adds `disable` attribute to `element`
  * @param {HTMLElement} element 
  */
 export function htmlDisable (element) {
   element.setAttribute('disabled', '')
+  element.disabled = true
 }
