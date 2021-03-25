@@ -38,6 +38,31 @@ export function htmlOnClick (element, f) {
 }
 
 /**
+ * @param {() => any} f
+ */
+export function htmlOnDOMLoad (f) {
+  document.addEventListener('DOMContentLoaded', f)
+}
+
+/**
+ * @param {(keyCode: string) => any} f
+ */
+export function htmlOnKeydown (f) {
+  document.addEventListener('keydown', event => {
+    f(event.key)
+  })
+}
+
+/**
+ * @param {(keyCode: string) => any} f
+ */
+export function htmlOnKeyup (f) {
+  document.addEventListener('keyup', event => {
+    f(event.key)
+  })
+}
+
+/**
  * @param {HTMLElement} element 
  * @param {() => any} f
  */

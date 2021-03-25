@@ -1,6 +1,65 @@
 import { arrMaxF } from './arr'
 import Dot from './geometry/Dot'
 import { strsEmpty } from './str'
+import { canvasTextBoundedJustifiedString } from './justified'
+import { htmlBody, htmlCanvas } from './html'
+import Rect from './geometry/Rect'
+
+/**
+ * @param {HTMLCanvasElement} canvas 
+ */
+export const canvasContext = canvas =>
+  canvas.getContext('2d')
+
+/**
+ * Creates, appends to body and returns canvas that is maximized to
+ * full screen. Changes <html> and <body> margins to 0 to
+ * enable canvas be fullscreen.
+ * Used for canvas-only applications
+ */
+export function canvasFullscreen () {
+  let canvas = htmlCanvas()
+  htmlBody().style.overflow = 'hidden'
+  document.documentElement.style.margin = '0'
+  htmlBody().style.margin = '0'
+  canvas.width = document.body.clientWidth
+  canvas.height = document.body.clientHeight
+  htmlBody().append(canvas)
+  return canvas
+}
+
+/**
+ * Returns `Rect` of full canvas
+ * @param {HTMLCanvasElement} canvas 
+ */
+export const canvasGetRect = canvas =>
+  Rect.plain({
+    x: 0,
+    y: 0,
+    w: canvas.width,
+    h: canvas.height
+  })
+
+/**
+ * Fills `rect` on canvas
+ * @param {CanvasRenderingContext2D} context 
+ * @param {import('./geometry/Rect').default} rect 
+ */
+export function canvasRect (context, rect) {
+  context.fillRect(rect.x, rect.y, rect.w, rect.h)
+}
+
+/**
+ * Fills `rect` on canvas
+ * @param {CanvasRenderingContext2D} context 
+ * @param {import('./geometry/Rect').default} rect 
+ * @param {string} style
+ */
+export function canvasRectStyled (context, rect, style) {
+  canvasFillStyled(context, style, () => {
+    context.fillRect(rect.x, rect.y, rect.w, rect.h)
+  })
+}
 
 /**
  * Draws frame on canvas
@@ -84,10 +143,30 @@ export function canvasTextFonted (context, text, position, font) {
 }
 
 /**
+ * @type {Map<string, number>}
+ */
+let textWidthMap = new Map()
+
+/**
  * @param {CanvasRenderingContext2D} context 
  * @param {string} text 
  */
 export function canvasTextWidth (context, text) {
+  const maxTextLengthToMemoize = 20
+  const maxMapSize = 1000
+
+  // If text is small, memoize its width for future use
+  if (text.length <= maxTextLengthToMemoize) {
+    const key = context.font + ': ' + text
+    if (textWidthMap.has(key)) {
+      return textWidthMap.get(key)
+    } else if (textWidthMap.size < maxMapSize) {
+      const width = context.measureText(text).width
+      textWidthMap.set(key, width)
+      return width
+    }
+  }
+
   return context.measureText(text).width
 }
 
@@ -166,6 +245,23 @@ export const canvasTextBounded = (context, text, rect, lineInterval) => {
   let lines = canvasSplitBounded(context, text, rect.w)
   lines.forEach((line, i) => {
     context.fillText(line, rect.x, rect.y + (i + 1) * lineInterval)
+  })
+}
+
+/**
+ * As `canvasTextBounded`, but text is justified (words are spaced evenly)
+ * @param {CanvasRenderingContext2D} context 
+ * @param {string} text 
+ * @param {import('./geometry/Rect').default} rect
+ * @param {number} lineInterval 
+ */
+export function canvasTextBoundedJustified (context, text, rect, lineInterval) {
+  let lines = canvasSplitBounded(context, text, rect.w)
+  lines.forEach((line, i) => {
+    const x = rect.x
+    const y = rect.y + (i + 1) * lineInterval
+    const width = rect.w
+    canvasTextBoundedJustifiedString(context, line, x, y, width)
   })
 }
 
