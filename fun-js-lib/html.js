@@ -45,20 +45,27 @@ export function htmlOnDOMLoad (f) {
 }
 
 /**
- * @param {(keyCode: string) => any} f
+ * @param {() => any} f
+ */
+export function htmlOnResize (f) {
+  window.addEventListener('resize', f)
+}
+
+/**
+ * @param {(event: KeyboardEvent) => any} f
  */
 export function htmlOnKeydown (f) {
   document.addEventListener('keydown', event => {
-    f(event.key)
+    f(event)
   })
 }
 
 /**
- * @param {(keyCode: string) => any} f
+ * @param {(event: KeyboardEvent) => any} f
  */
 export function htmlOnKeyup (f) {
   document.addEventListener('keyup', event => {
-    f(event.key)
+    f(event)
   })
 }
 
@@ -82,8 +89,7 @@ export const htmlIded = id =>
  * @param {HTMLElement} element 
  */
 export function htmlEnable (element) {
-  element.removeAttribute('disable')
-  element.disabled = false
+  element.removeAttribute('disabled')
 }
 
 /**
@@ -92,5 +98,4 @@ export function htmlEnable (element) {
  */
 export function htmlDisable (element) {
   element.setAttribute('disabled', '')
-  element.disabled = true
 }

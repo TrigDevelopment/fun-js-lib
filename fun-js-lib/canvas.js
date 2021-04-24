@@ -29,6 +29,15 @@ export function canvasFullscreen () {
 }
 
 /**
+ * Resizes canvas to fit window. Use with `htmlOnResize`
+ * @param {HTMLCanvasElement} canvas
+ */
+export function canvasRefreshFullscreen (canvas) {
+  canvas.width = document.body.clientWidth
+  canvas.height = document.body.clientHeight
+}
+
+/**
  * Returns `Rect` of full canvas
  * @param {HTMLCanvasElement} canvas 
  */
